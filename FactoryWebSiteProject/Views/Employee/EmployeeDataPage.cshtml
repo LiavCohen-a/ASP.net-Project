@@ -1,0 +1,78 @@
+﻿@model FactoryWebSiteProject.Models.Employee
+    @using FactoryWebSiteProject.Models;
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EmployeeDataPage</title>
+    <script>
+        function LogOut() {
+            window.location.href = "https://localhost:44371/Home/LogOut";
+        }
+
+    </script>
+</head>
+<body>
+    <div>
+        <h3>
+            @((Session["userData"] as User).FullName) -- Wellcome To Employees Manegment Page && You Have  @Session["NumOfActions"] Action For Today You did @Session["counter"] Alredy.
+            <input type="button" onclick="LogOut()" value="Log Out" />
+        </h3>
+        <form action="/Employee/EmployeenewData">
+            Search Epmloyee By (Name,Email,Department) : <input type="text" name="name" />
+            <input type="submit" value="Search" />
+            <a href="/Employee/EmployeeDataPage">To All Employee</a>
+        </form>
+
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>StartWorkYear</th>
+                <th>Department</th>
+                <th>Shift List</th>
+                <th>Editor</th>
+                <th>Delete</th>
+            </tr>
+            @for (var i = 0; i < ViewBag.Emp.Count; i++)
+            {
+                <tr>
+                    <td>@ViewBag.Emp[i].ID</td>
+                    <td>@ViewBag.Emp[i].FirstName</td>
+                    <td>@ViewBag.Emp[i].LastName</td>
+                    <td>@ViewBag.Emp[i].StartWorkYear</td>
+                    <td>@ViewBag.Emp[i].Department</td>
+                    <td>
+                        <ul>
+                            @foreach (var shi in ViewBag.Shifts)
+                            {
+                                if (shi.empID == ViewBag.Emp[i].ID)
+                                {
+                                    <li>@shi.shifts , @shi.Start - @shi.End</li>
+                                }
+                            }
+                        </ul>
+
+
+                        @Html.ActionLink("Add Shift", "AddShiftToEmp", new { EmpID = @ViewBag.Emp[i].ID })
+                    </td>
+
+                    <td>@Html.ActionLink("Edit", "EditEmployeePage", new { empID = @ViewBag.Emp[i].ID })</td>
+                    <td>@Html.ActionLink("Delete", "DeleteCom", new { empID = @ViewBag.Emp[i].ID })</td>
+
+                </tr>
+
+
+            }
+        </table><br /> <a href="/Employee/AddEmployeePage">To Add Employee Page</a><br />
+        <br />
+        <a href="/Home/HomePage">To Home Page</a><br />
+    </div>
+</body>
+</html>

@@ -1,0 +1,38 @@
+﻿@model FactoryWebSiteProject.Models.User
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>HomePage</title>
+    <script>
+        function LogOut() {
+            window.location.href = "https://localhost:44371/Home/LogOut";
+        }
+
+    </script>
+</head>
+<body>
+    <div>
+        <h3>
+            @(Model.FullName) -- Wellcome To Home Page && You Have  @Session["NumOfActions"] Action  For Today You did @Session["counter"] Alredy.
+
+
+            <input type="button" onclick="LogOut()" value="Log Out" />
+        </h3>
+   
+
+        <ul>
+            <li><a href="/Employee/EmployeeDataPage">To Employee Manegment</a></li>
+            <li><a href="/Department/DepartmentData">To Department Manegment</a></li>
+            <li><a href="/Shiift/GetShiftDataPage">To Shifts Manegment</a></li>
+        </ul>
+
+    </div>
+</body>
+</html>

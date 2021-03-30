@@ -1,0 +1,30 @@
+﻿@model FactoryWebSiteProject.Models.User
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login Page</title>
+</head>
+<body>
+    <div>
+        <h1>Wellcome To Login Page</h1>
+
+        <form action="/Login/DoLogin" method="post">
+            User Name : @Html.TextBoxFor(x => x.UserName)<br />
+            Password : @Html.TextBoxFor(x => x.Password)<br />
+            <input type="submit" value="Enter" />
+        </form>
+        <br />
+        <br />
+        <br />
+        
+        @Html.ActionLink("Registration Page", "RegistrationPage")
+
+    </div>
+</body>
+</html>

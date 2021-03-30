@@ -1,0 +1,37 @@
+﻿@model FactoryWebSiteProject.Models.Departments
+@using FactoryWebSiteProject.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EditPage</title>
+    <script>
+        function LogOut() {
+            window.location.href = "https://localhost:44371/Home/LogOut";
+        }
+
+    </script>
+</head>
+<body>
+    <div>
+        <h3>
+            @((Session["userData"] as User).FullName) -- Edit Department Page && You Have  @Session["NumOfActions"] Action For Today You did @Session["counter"] Alredy.
+            <input type="button" onclick="LogOut()" value="Log Out" />
+        </h3>
+
+        <form action="/Department/Editor" method="post">
+            Edit ID : @Html.EditorFor(x => x.ID)<br />
+            Edit Department : @Html.EditorFor(x => x.DepName)<br />
+            Edit Maneger ID :@Html.EditorFor(x => x.ManegerEmpID)<br />
+            <input type="submit" value="Confirm" />
+        </form><br /><br /> <br />
+
+        <a href="/Department/DepartmentData">To Department Page</a>
+    </div>
+</body>
+</html>

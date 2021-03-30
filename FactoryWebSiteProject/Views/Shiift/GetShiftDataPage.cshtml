@@ -1,0 +1,68 @@
+﻿@model FactoryWebSiteProject.Models.Shifts
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+@using FactoryWebSiteProject.Models;
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>GetShiftDataPage</title>
+    <script>
+        function AddShift() {
+            window.location.href = "https://localhost:44371/Shiift/AddShift";
+        }
+      
+            function LogOut() {
+                window.location.href = "https://localhost:44371/Home/LogOut";
+        }
+
+
+    </script>
+</head>
+<body>
+    <div>
+        <h3>
+            @((Session["userData"] as User).FullName) -- Wellcome To Shifts Data && You Have  @Session["NumOfActions"] Action For Today You did @Session["counter"] Alredy.
+            <input type="button" onclick="LogOut()" value="Log Out" />
+        </h3>
+       
+        <table border="1">
+            <tr>
+                <th>Shifts ID</th>
+                <th>Shifts Date</th>
+                <th>Shifts Start Time</th>
+                <th>Shifts End Time</th>
+                <th>Shifts Employees List</th>
+            </tr>
+            @for (int i = 0; i < ViewBag.shi.Count; i++)
+            {
+                <tr>
+                    <td>@ViewBag.shi[i].ID</td>
+                    <td>@ViewBag.shi[i].Date</td>
+                    <td>@ViewBag.shi[i].StartTime</td>
+                    <td>@ViewBag.shi[i].EndTime</td>
+                    <td>
+                        <ul>
+                            @foreach (var emp in ViewBag.Name[i])
+                            {
+                                
+                            <li>
+                                @Html.ActionLink((string)@emp.FullName, "DeleteFromShift", new { name = emp.FullName })
+                            </li>
+
+                            }
+                        </ul>
+                    </td>
+                </tr>
+            }
+
+        </table><br />
+        <input type="button" onclick="AddShift()" value="Add New Shift Page" />
+        <br /><br />
+        <a href="/Home/HomePage">To Home Page</a><br />
+
+    </div>
+</body>
+</html>

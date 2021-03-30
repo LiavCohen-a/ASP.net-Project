@@ -1,0 +1,57 @@
+﻿@using FactoryWebSiteProject.Models;
+@{
+    Layout = null;
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DepartmentData</title>
+    <script>
+        function AddDep() {
+            window.location.href = "https://localhost:44371/Department/CreateDepartmentPage";
+        } 
+        function LogOut() {
+            window.location.href = "https://localhost:44371/Home/LogOut";
+        }
+
+    </script>
+</head>
+<body>
+    <div>
+        <h3>
+            @((Session["userData"] as User).FullName) -- Wellcome To Department Data && You Have  @Session["NumOfActions"] Action For Today You did @Session["counter"] Alredy.
+            <input type="button" onclick="LogOut()" value="Log Out" />
+        </h3>
+
+        <table border="1">
+            <tr>
+                <th>Department ID</th>
+                <th>Department Name</th>
+                <th>Department Maneger</th>
+                <th>Editor</th>
+                <th>Delete</th>
+            </tr>
+            @foreach (var dep in ViewBag.dep)
+            {
+                <tr>
+                    <td>@dep.ID</td>
+                    <td>@dep.DepName</td>
+                    <td>@dep.ManegerEmpID</td>
+                    <td>@Html.ActionLink("Edit", "EditPage", new { depID = dep.ID })</td>
+                    <td> @Html.ActionLink("Delete", "DeleteCom", new { depID = dep.ID })</td>
+                </tr>
+            }
+
+        </table><br />
+        <input type="button" onclick="AddDep()" value="Add Department" />
+        <br /><br />
+        <a href="/Home/HomePage">To Home Page</a><br />
+
+
+    </div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+﻿@model FactoryWebSiteProject.Models.Employee
+    @using FactoryWebSiteProject.Models 
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddEmployeePage</title>
+    <script>
+        function LogOut() {
+            window.location.href = "https://localhost:44371/Home/LogOut";
+        }
+
+    </script>
+</head>
+<body>
+    
+        <div>
+            <h3>
+                @((Session["userData"] as User).FullName) -- Add Employee Page  && You Have  @Session["NumOfActions"] Action For Today You did @Session["counter"] Alredy.
+                <input type="button" onclick="LogOut()" value="Log Out" />
+            </h3>
+
+            <form action="/Employee/GetNewEmp" method="post">
+                ID : @Html.TextBoxFor(x => x.ID)<br />
+                First Name : @Html.TextBoxFor(x => x.FirstName)<br />
+                Last Name :@Html.TextBoxFor(x => x.LastName)<br />
+                Start Work Year :@Html.TextBoxFor(x => x.StartWorkYear, new { type = "date" })<br />
+                Department : <select>
+                    @foreach (var dep in ViewBag.dep)
+                    {
+                        <option>
+                            @dep.DepName
+                        </option>
+                    }
+                </select>
+                    <br />
+                    <br />
+                    <input type="submit" value="Add Employee" />
+            </form><br /><br /> <br />
+
+            <a href="/Employee/EmployeeDataPage">To Employee Page</a>
+        </div>
+    
+</body>
+</html>

@@ -1,0 +1,42 @@
+﻿@model FactoryWebSiteProject.Models.EmployeeShifts
+    @using FactoryWebSiteProject.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>AddShiftToEmp</title>
+    <script>
+        function LogOut() {
+            window.location.href = "https://localhost:44371/Home/LogOut";
+        }
+
+    </script>
+</head>
+<body>
+    <div> 
+        <h3>
+            @((Session["userData"] as User).FullName) -- Add Shift To Employee && You Have  @Session["NumOfActions"] Action For Today You did @Session["counter"] Alredy.
+            <input type="button" onclick="LogOut()" value="Log Out" />
+        </h3>
+
+
+        <form action="/Employee/AddShift" method="post">
+            Employee ID :  <input type="text" value="@ViewBag.EmpID" id="EmployeeID" name="EmployeeID" /><br />
+
+            Shifts ID : <select name="ShiftID">
+                @foreach (var item in ViewBag.Shifts)
+                {
+                    <option>@item.ID</option>
+                }
+            </select><br />
+            <input type="submit" value="Add Shift" />
+
+        </form>
+    </div>
+</body>
+</html>
